@@ -28,14 +28,16 @@ class JokeApp extends Component {
     render(){
         return(
             <div className="JokeApp">
-                <h1>Dad Jokes</h1>
-                <div>
+                <div className="JokeApp-sidebar">
+                    <h1 className="JokeApp-title">Dad Jokes</h1>
+                    <img src="https://www.svgrepo.com/show/209006/laughing-emoji.svg" alt="laughing emoji"></img>
+                    <button className="JokeApp-button">New Jokes</button>
+                </div>
+                <div className="JokeApp-jokes">
                     {this.state.jokes.map(j => (
                         <div>{j}</div>
                     ))}
                 </div>
-                <button>New Jokes</button>
-                <Joke />
             </div>
         )
     }

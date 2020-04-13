@@ -1,0 +1,33 @@
+.JokeApp {
+    display: flex;
+    width: 80%;
+    height: 80%;
+}
+
+.JokeApp-sidebar {
+    background-color: rebeccapurple;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    text-align: center;
+}
+
+.JokeApp-title {
+    font-size: 3rem;
+    margin: 2rem;
+    font-weight: 300;
+    color: white;
+}
+
+.JokeApp-sidebar img {
+    width: 50%;
+}
+
+.JokeApp-jokes {
+    background-color: white;
+    overflow: scroll;
+    height: 90%;
+    align-self: center;
+}
