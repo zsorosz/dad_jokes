@@ -19,9 +19,9 @@ class JokeApp extends Component {
             let res = await axios.get(API_URL, {
                 headers: { Accept: "application/json" }
                 });
-            jokes.push(res.data.joke)
+            jokes.push({text: res.data.joke, votes: 0})
         }
-        this.setState({ jokes: jokes});
+        this.setState({ jokes: jokes });
         console.log(this.state.jokes);
     }
 
@@ -30,12 +30,12 @@ class JokeApp extends Component {
             <div className="JokeApp">
                 <div className="JokeApp-sidebar">
                     <h1 className="JokeApp-title">Dad Jokes</h1>
-                    <img src="https://www.svgrepo.com/show/209006/laughing-emoji.svg" alt="laughing emoji"></img>
+                    <img src="https://www.svgrepo.com/show/209006/laughing-emoji.svg" alt="laughing"></img>
                     <button className="JokeApp-button">New Jokes</button>
                 </div>
                 <div className="JokeApp-jokes">
                     {this.state.jokes.map(j => (
-                        <div>{j}</div>
+                        <Joke text={j.text} votes={j.votes} />
                     ))}
                 </div>
             </div>
