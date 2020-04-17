@@ -12,6 +12,7 @@ class JokeApp extends Component {
     constructor(props){
         super(props);
         this.state = { jokes: JSON.parse(window.localStorage.getItem("jokes") || "[]") };
+        this.handleClick = this.handleClick.bind(this);
     }
 
     async componentDidMount(){
@@ -25,8 +26,15 @@ class JokeApp extends Component {
                 });
             jokes.push({id: uuid(), text: res.data.joke, votes: 0})
         }
-        this.setState({ jokes: jokes });
-        window.localStorage.setItem("jokes", JSON.stringify(jokes));
+        this.setState(st => ({
+            jokes: [...st.jokes, ...jokes]
+        }),
+        () => window.localStorage.setItem("jokes", JSON.stringify(this.state.jokes))
+        );
+    }
+
+    handleClick(){
+        this.getJokes();
     }
 
     handleVote(id, delta){
@@ -34,7 +42,9 @@ class JokeApp extends Component {
             jokes: st.jokes.map(j =>
                 j.id === id ? {...j, votes: j.votes + delta} : j
             )
-        }));
+        }),
+        () => window.localStorage.setItem("jokes", JSON.stringify(this.state.jokes))
+        );
     }
 
     render(){
@@ -43,7 +53,7 @@ class JokeApp extends Component {
                 <div className="JokeApp-sidebar">
                     <h1 className="JokeApp-title">Dad Jokes</h1>
                     <img src="https://www.svgrepo.com/show/209006/laughing-emoji.svg" alt="laughing"></img>
-                    <button className="JokeApp-button">New Jokes</button>
+                    <button className="JokeApp-button" onClick={this.handleClick}>New Jokes</button>
                 </div>
                 <div className="JokeApp-jokes">
                     {this.state.jokes.map(j => (
