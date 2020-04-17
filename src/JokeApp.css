@@ -2,6 +2,7 @@
     display: flex;
     width: 80%;
     height: 80%;
+    
 }
 
 .JokeApp-sidebar {
@@ -12,6 +13,7 @@
     justify-content: center;
     width: 30%;
     text-align: center;
+    box-shadow: 0 10px 38px rgba(0, 0, 0, 0.2), 0 10px 12px rgba(0, 0, 0, 0.1);
 }
 
 .JokeApp-title {
