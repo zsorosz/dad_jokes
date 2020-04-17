@@ -11,7 +11,10 @@ class JokeApp extends Component {
     }
     constructor(props){
         super(props);
-        this.state = { jokes: JSON.parse(window.localStorage.getItem("jokes") || "[]") };
+        this.state = { 
+            jokes: JSON.parse(window.localStorage.getItem("jokes") || "[]"), 
+            loading: false
+        };
         this.handleClick = this.handleClick.bind(this);
     }
 
@@ -27,6 +30,7 @@ class JokeApp extends Component {
             jokes.push({id: uuid(), text: res.data.joke, votes: 0})
         }
         this.setState(st => ({
+            loading: false,
             jokes: [...st.jokes, ...jokes]
         }),
         () => window.localStorage.setItem("jokes", JSON.stringify(this.state.jokes))
@@ -34,7 +38,7 @@ class JokeApp extends Component {
     }
 
     handleClick(){
-        this.getJokes();
+        this.setState({ loading: true }, this.getJokes);
     }
 
     handleVote(id, delta){
@@ -48,6 +52,14 @@ class JokeApp extends Component {
     }
 
     render(){
+        if(this.state.loading){
+            return(
+                <div className="JokeApp-spinner">
+                    <i className="far fa-8x fa-laugh fa-spin"></i>
+                    <h1 className="JokeApp-title">Loading...</h1>
+                </div>
+            )
+        }
         return(
             <div className="JokeApp">
                 <div className="JokeApp-sidebar">
